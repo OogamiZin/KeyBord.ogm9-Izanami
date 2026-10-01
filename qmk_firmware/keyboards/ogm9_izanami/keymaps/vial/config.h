@@ -5,6 +5,6 @@
 #define VIAL_COMBO_ENTRIES 8
 #define PICO_FLASH_SIZE_BYTES (1 * 1024 * 1024)
 
-#define ENCODERS_PAD_A { GP27 }  // A相のピン番号（使用環境に合わせて変更）
-#define ENCODERS_PAD_B { GP28 }  // B相のピン番号（使用環境に合わせて変更）
+#define ENCODER_PAD_A { GP27 }  // A相のピン番号（使用環境に合わせて変更）
+#define ENCODER_PAD_B { GP28 }  // B相のピン番号（使用環境に合わせて変更）
 #define ENCODER_RESOLUTION 4   // 1クリックごとのカウント数（通常 4 または 2）
