@@ -1,0 +1,11 @@
+{
+    "include": [
+        {
+            "keyboard": "ogm9_izanami",
+            "keymap": "vial",
+            "target": "uf2",
+            "flags": "EXTRAFLAGS=\"\"",
+            "name": "ogm9_izanami_vial"
+        }
+    ]
+}
