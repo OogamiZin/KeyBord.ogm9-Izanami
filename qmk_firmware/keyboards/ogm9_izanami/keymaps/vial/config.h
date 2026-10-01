@@ -5,6 +5,10 @@
 #define VIAL_COMBO_ENTRIES 8
 #define PICO_FLASH_SIZE_BYTES (1 * 1024 * 1024)
 
+#define DIRECT_PINS { \
+    { GP29 } \
+}
+
 #define NUM_ENCODERS 1
 #define ENCODER_PAD_A { GP27 }
 #define ENCODER_PAD_B { GP28 }
