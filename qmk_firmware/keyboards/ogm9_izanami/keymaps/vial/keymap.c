@@ -26,18 +26,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LT(2,KC_LEFT_BRACKET)
     ),
     [1] = LAYOUT(
-                KC_TRNS,           KC_NO,           KC_NO,           KC_NO,
-                  KC_NO,           KC_NO,           KC_NO,           KC_NO,
-                  KC_NO,           KC_NO,           KC_NO,           KC_NO,
-                  KC_NO,           KC_NO,           KC_NO,           KC_NO,
-                  KC_NO,           KC_NO,           KC_NO,           KC_NO,
-                  KC_NO,           KC_NO,           KC_NO,           KC_NO,
-                  KC_NO,           KC_NO,           KC_NO,           KC_NO,
-                  KC_NO,           KC_NO,           KC_NO,           KC_NO,
-                  KC_NO,           KC_NO,           KC_NO,           KC_NO,
-                  KC_NO,           KC_NO,           KC_NO,           KC_NO,
-                  KC_NO,           KC_NO,           KC_NO,           KC_NO,
-                  KC_NO
+                KC_TRNS,  KC_TRANSPARENT,           KC_F1,           KC_F2,
+                  KC_F3,           KC_F4,           KC_F5,           KC_F7,
+                  KC_F8,           KC_F9,          KC_F10,          KC_F11,
+              KC_ESCAPE,            KC_1,            KC_2,            KC_3,
+                   KC_4,            KC_5,            KC_6,            KC_7,
+                   KC_8,            KC_9,            KC_0,  KC_TRANSPARENT,
+                  KC_F6, KC_INTERNATIONAL_1, KC_RIGHT_BRACKET,    KC_BACKSLASH,
+                  KC_NO,    KC_SEMICOLON,        KC_QUOTE,        KC_SLASH,
+             KC_PAGE_UP,        KC_EQUAL,  KC_TRANSPARENT,  KC_TRANSPARENT,
+         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
+         KC_TRANSPARENT,         KC_HOME,    KC_PAGE_DOWN,          KC_END,
+         KC_TRANSPARENT
     ),
     [2] = LAYOUT(
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
@@ -99,12 +99,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-    [2] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-    [3] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-    [4] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-    [5] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) }
 };
 #endif
 
