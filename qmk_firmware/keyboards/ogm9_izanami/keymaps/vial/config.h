@@ -6,8 +6,6 @@
 #define PICO_FLASH_SIZE_BYTES (1 * 1024 * 1024)
 
 /* ---- ロータリーエンコーダー設定 ---- */
-#define ENCODERS_PAD_A { GP27 }
-#define ENCODERS_PAD_B { GP28 }
 #define ENCODER_RESOLUTION 4
 
 /* ---- ダイレクトピン（エンコーダー押し込み用） ---- */
