@@ -3,7 +3,7 @@
   "vendorId": "0xFEED",
   "productId": "0x0000",
   "matrix": {
-    "rows": 4,
+    "rows": 5,
     "cols": 11
   },
   "encoders": [
