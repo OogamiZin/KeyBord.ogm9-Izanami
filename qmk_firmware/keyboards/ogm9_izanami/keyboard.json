@@ -8,12 +8,16 @@
         "bootmagic": true,
         "command": false,
         "console": false,
+        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "pointing_device": false
     },
     "matrix_pins": {
+        "direct": [
+        ["GP29"]
+        ],
         "rows": [
             "GP14",
             "GP16",
@@ -32,6 +36,12 @@
             "GP10",
             "GP11",
             "GP12"
+        ]
+    },
+        "encoder": {
+        "enabled": true,
+        "rotary": [
+            {"pin_a": "GP27", "pin_b": "GP28"}
         ]
     },
     "split": {},
