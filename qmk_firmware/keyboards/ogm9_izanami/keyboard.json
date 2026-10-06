@@ -1,6 +1,6 @@
 {
     "manufacturer": "Auto-Keyboard-Design-Kit by sekigon-gonnoc",
-    "keyboard_name": "oogami_9_izanami",
+    "keyboard_name": "ogm9_izanami",
     "maintainer": "Auto-KDK",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
@@ -18,8 +18,7 @@
             "GP14",
             "GP16",
             "GP17",
-            "GP22",
-            "GP29"
+            "GP22"
         ],
         "cols": [
             "GP0",
@@ -46,16 +45,6 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {
-                    "matrix": [
-                        4,
-                        0
-                    ],
-                    "x": 0,
-                    "y": 0,
-                    "w": 1,
-                    "h": 1
-                },
                 {
                     "matrix": [
                         0,
@@ -630,8 +619,5 @@
                 }
             ]
         }
-    },
-    "dynamic_keymap": {
-        "layer_count": 4
     }
 }
