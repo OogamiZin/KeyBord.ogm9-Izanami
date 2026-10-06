@@ -12,7 +12,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-          KC_AUDIO_MUTE,            KC_Q,            KC_W,            KC_E,
+                      KC_Q,            KC_W,            KC_E,
                    KC_R,            KC_T,            KC_Y,            KC_U,
                    KC_I,            KC_O,            KC_P,    KC_BACKSPACE,
                  KC_TAB,            KC_A,            KC_S,            KC_D,
@@ -23,10 +23,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_COMMA,           KC_UP, LT(2,KC_LEFT_BRACKET),    KC_LEFT_CTRL,
             KC_LEFT_GUI,     KC_LEFT_ALT, LT(1,KC_LANGUAGE_2),        KC_SPACE,
                KC_ENTER, LT(1,KC_LANGUAGE_1),         KC_LEFT,         KC_DOWN,
-               KC_RIGHT
-    ),
+               KC_RIGHT,
+    KC_MUTE  // ← 一番最後にロータリーエンコーダー押し込み時のキーコードを記述    ),
     [1] = LAYOUT(
-         KC_TRANSPARENT,           KC_F1,           KC_F2,           KC_F3,
+                    KC_F1,           KC_F2,           KC_F3,
                   KC_F4,           KC_F5,           KC_F7,           KC_F8,
                   KC_F9,          KC_F10,          KC_F11,       KC_DELETE,
               KC_ESCAPE,            KC_1,            KC_2,            KC_3,
@@ -37,10 +37,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_DOT,      KC_PAGE_UP,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT, LT(3,KC_TRANSPARENT),  KC_TRANSPARENT,
          KC_TRANSPARENT, LT(3,KC_TRANSPARENT),         KC_HOME,    KC_PAGE_DOWN,
-                 KC_END
+                 KC_END,
+         KC_TRANSPARENT
     ),
     [2] = LAYOUT(
-         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
+           KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,           KC_F6,  KC_TRANSPARENT,
               KC_INSERT,  KC_TRANSPARENT,          KC_F12,  KC_TRANSPARENT,
                KC_GRAVE,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
@@ -51,10 +52,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_TRANSPARENT,         KC_VOLU,  KC_TRANSPARENT,    KC_CAPS_LOCK,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,         KC_VOLD,
+         KC_TRANSPARENT,
          KC_TRANSPARENT
     ),
     [3] = LAYOUT(
-         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
+           KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,   QK_BOOTLOADER,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
@@ -65,6 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
+         KC_TRANSPARENT,
          KC_TRANSPARENT
     )
 };
