@@ -7,8 +7,3 @@
 
 /* ---- ロータリーエンコーダー設定 ---- */
 #define ENCODER_RESOLUTION 4
-
-/* ---- ダイレクトピン（エンコーダー押し込み用） ---- */
-#define DIRECT_PINS { \
-    { GP29 } \
-}
