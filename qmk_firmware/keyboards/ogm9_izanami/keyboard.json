@@ -37,15 +37,6 @@
     "direct_pins": [
         "GP29"
     ],
-    "encoder": {
-        "enabled": true,
-        "rotary": [
-            {
-                "pin_a": "GP28",
-                "pin_b": "GP27"
-            }
-        ]
-    },
     "split": {},
     "processor": "RP2040",
     "url": "https://sekigon-gonnoc.github.io/auto-kdk/",
