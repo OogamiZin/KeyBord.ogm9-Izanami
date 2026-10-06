@@ -8,5 +8,3 @@ on:
 jobs:
   build:
     uses: sekigon-gonnoc/vial-keymap-c-editor/.github/workflows/build-keymap.yml@main
-    with:
-      clean: true
