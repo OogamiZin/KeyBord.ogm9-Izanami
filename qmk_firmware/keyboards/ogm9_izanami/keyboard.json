@@ -38,15 +38,6 @@
             "GP12"
         ]
     },
-    "encoder": {
-        "enabled": true,
-        "rotary": [
-            {
-                "pin_a": "GP27",
-                "pin_b": "GP28"
-            }
-        ]
-    },
     "split": {},
     "processor": "RP2040",
     "url": "https://sekigon-gonnoc.github.io/auto-kdk/",
