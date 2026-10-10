@@ -6,9 +6,30 @@
 #include "qmk_settings.h"
 #endif
 
-/* USER INCLUDE BEGIN */
+/* USER CODE BEGIN */
 static bool gp29_pressed = false;
-/* USER INCLUDE END */
+
+void keyboard_post_init_user(void) {
+    // GP29を入力モードにし、内蔵プルアップを有効化する
+    setPinInputHigh(GP29);
+}
+
+void matrix_scan_user(void) {
+    // スイッチが押されてピンがLOW（GND落ち）になったとき
+    if (!readPin(GP29)) {
+        if (!gp29_pressed) {
+            gp29_pressed = true;
+            // ミュート / ミュート解除のメディアキー送信
+            tap_code(KC_AUDIO_MUTE);
+        }
+    } else {
+        // スイッチが離されたとき
+        if (gp29_pressed) {
+            gp29_pressed = false;
+        }
+    }
+}
+/* USER CODE END */
 
 /* GENERATED CODE BEGIN */
 
@@ -209,19 +230,4 @@ void __wrap_dynamic_keymap_reset(void) {
 
 
 /* USER CODE BEGIN */
-void matrix_scan_user(void) {
-    // スイッチが押されてピンがLOW（GND落ち）になったとき
-    if (!readPin(GP29)) {
-        if (!gp29_pressed) {
-            gp29_pressed = true;
-            // ミュート / ミュート解除のメディアキー送信
-            tap_code(KC_AUDIO_MUTE);
-        }
-    } else {
-        // スイッチが離されたとき
-        if (gp29_pressed) {
-            gp29_pressed = false;
-        }
-    }
-}
 /* USER CODE END */
