@@ -11,7 +11,13 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgblight": false
+        "rgblight": false,
+        "encoder": true
+    },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "GP28", "pin_b": "GP27", "resolution": 4 }
+        ]
     },
     "matrix_pins": {
         "rows": [
