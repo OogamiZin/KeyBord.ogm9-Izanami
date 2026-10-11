@@ -6,30 +6,7 @@
 #include "qmk_settings.h"
 #endif
 
-/* USER CODE BEGIN */
-static bool gp29_pressed = false;
-
-void keyboard_post_init_user(void) {
-    // GP29を入力モードにし、内蔵プルアップを有効化する
-    setPinInputHigh(GP29);
-}
-
-void matrix_scan_user(void) {
-    // スイッチが押されてピンがLOW（GND落ち）になったとき
-    if (!readPin(GP29)) {
-        if (!gp29_pressed) {
-            gp29_pressed = true;
-            // ミュート / ミュート解除のメディアキー送信
-            tap_code(KC_AUDIO_MUTE);
-        }
-    } else {
-        // スイッチが離されたとき
-        if (gp29_pressed) {
-            gp29_pressed = false;
-        }
-    }
-}
-/* USER CODE END */
+/* USER INCLUDE BEGIN *//* USER INCLUDE END */
 
 /* GENERATED CODE BEGIN */
 
@@ -56,22 +33,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                    KC_9,            KC_0,  KC_TRANSPARENT,  KC_TRANSPARENT,
                KC_EQUAL, KC_INTERNATIONAL_3, KC_RIGHT_BRACKET,    KC_BACKSLASH,
            KC_SEMICOLON,        KC_QUOTE,        KC_SLASH,          KC_DOT,
-             KC_PAGE_UP,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
+                  KC_UP,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT, LT(3,KC_TRANSPARENT),  KC_TRANSPARENT,  KC_TRANSPARENT,
-        LT(3,KC_TRANSPARENT),         KC_HOME,    KC_PAGE_DOWN,          KC_END
+        LT(3,KC_TRANSPARENT),         KC_LEFT,         KC_DOWN,        KC_RIGHT
     ),
     [2] = LAYOUT(
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,           KC_F6,  KC_TRANSPARENT,       KC_INSERT,
-         KC_TRANSPARENT,          KC_F12,  KC_TRANSPARENT,        KC_GRAVE,
+         KC_TRANSPARENT,          KC_F12,       KC_DELETE,        KC_GRAVE,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT, KC_INTERNATIONAL_1,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,         KC_MENU,  KC_TRANSPARENT,
-                KC_VOLU,  KC_TRANSPARENT,    KC_CAPS_LOCK,  KC_TRANSPARENT,
+             KC_PAGE_UP,  KC_TRANSPARENT,    KC_CAPS_LOCK,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
-         KC_TRANSPARENT,  KC_TRANSPARENT,         KC_VOLD,  KC_TRANSPARENT
+         KC_TRANSPARENT,         KC_HOME,    KC_PAGE_DOWN,          KC_END
     ),
     [3] = LAYOUT(
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
@@ -90,10 +67,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [1] = { ENCODER_CCW_CW(KC_TRANSPARENT, KC_TRANSPARENT) },
-    [2] = { ENCODER_CCW_CW(KC_TRANSPARENT, KC_TRANSPARENT) },
-    [3] = { ENCODER_CCW_CW(KC_TRANSPARENT, KC_TRANSPARENT) }
+    [0] = {
+        { KC_AUDIO_VOL_UP, KC_AUDIO_VOL_DOWN }
+    },
+    [1] = {
+        { KC_TRANSPARENT , KC_TRANSPARENT  }
+    },
+    [2] = {
+        { KC_TRANSPARENT , KC_TRANSPARENT  }
+    },
+    [3] = {
+        { KC_TRANSPARENT , KC_TRANSPARENT  }
+    }
 };
 #endif
 
@@ -230,4 +215,26 @@ void __wrap_dynamic_keymap_reset(void) {
 
 
 /* USER CODE BEGIN */
+static bool gp29_pressed = false;
+
+void keyboard_post_init_user(void) {
+    // GP29を入力モードにし、内蔵プルアップを有効化する
+    setPinInputHigh(GP29);
+}
+
+void matrix_scan_user(void) {
+    // スイッチが押されてピンがLOW（GND落ち）になったとき
+    if (!readPin(GP29)) {
+        if (!gp29_pressed) {
+            gp29_pressed = true;
+            // ミュート / ミュート解除のメディアキー送信
+            tap_code(KC_AUDIO_MUTE);
+        }
+    } else {
+        // スイッチが離されたとき
+        if (gp29_pressed) {
+            gp29_pressed = false;
+        }
+    }
+}
 /* USER CODE END */
