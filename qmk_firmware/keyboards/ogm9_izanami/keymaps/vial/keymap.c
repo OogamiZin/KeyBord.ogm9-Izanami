@@ -6,7 +6,11 @@
 #include "qmk_settings.h"
 #endif
 
-/* USER INCLUDE BEGIN *//* USER INCLUDE END */
+/* USER INCLUDE BEGIN */
+enum custom_keycodes {
+    MAC_SCREENSHOT = SAFE_RANGE,
+};
+/* USER INCLUDE END */
 
 /* GENERATED CODE BEGIN */
 
@@ -41,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,           KC_F6,  KC_TRANSPARENT,       KC_INSERT,
          KC_TRANSPARENT,          KC_F12,       KC_DELETE,        KC_GRAVE,
-         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,      QM_MACRO_0,
+         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  MAC_SCREENSHOT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT, KC_INTERNATIONAL_1,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
@@ -241,4 +245,30 @@ void matrix_scan_user(void) {
         }
     }
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MAC_SCREENSHOT:
+            if (record->event.pressed) {
+                // Shift + Command + Control を押す
+                register_code(KC_LSFT);
+                register_code(KC_LGUI);
+                register_code(KC_LCTL);
+
+                wait_ms(10);
+
+                // 4を押して離す
+                tap_code(KC_4);
+
+                // 修飾キーを離す
+                unregister_code(KC_LCTL);
+                unregister_code(KC_LGUI);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+    }
+
+    return true;
+}
+
 /* USER CODE END */
