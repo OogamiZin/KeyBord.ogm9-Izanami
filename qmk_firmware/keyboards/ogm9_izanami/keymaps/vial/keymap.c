@@ -71,10 +71,10 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
         { KC_AUDIO_VOL_UP, KC_AUDIO_VOL_DOWN }
     },
     [1] = {
-        { KC_TRANSPARENT , KC_TRANSPARENT  }
+        { KC_MS_WH_LEFT  , KC_MS_WH_RIGHT  }
     },
     [2] = {
-        { KC_TRANSPARENT , KC_TRANSPARENT  }
+        { KC_MS_WH_LEFT  , KC_MS_WH_RIGHT  }
     },
     [3] = {
         { KC_TRANSPARENT , KC_TRANSPARENT  }
