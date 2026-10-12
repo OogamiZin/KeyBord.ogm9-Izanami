@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,           KC_F6,  KC_TRANSPARENT,       KC_INSERT,
          KC_TRANSPARENT,          KC_F12,       KC_DELETE,        KC_GRAVE,
-         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,         KC_KP_4,
+         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,      QM_MACRO_0,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT, KC_INTERNATIONAL_1,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
@@ -114,7 +114,11 @@ const vial_combo_entry_t PROGMEM default_combo_entries[] = {
 
 // Macro buffer
 const uint8_t PROGMEM default_macro_buffer[] = {
-    
+    // MACのスクリーンショット: Shift + GUI + Ctrl を押しながら '4' を押して離すシーケンス
+    SS_DOWN(KC_RSHIFT), SS_DOWN(KC_RGUI), SS_DOWN(KC_RCTL),
+    SS_TAP(KC_4),
+    SS_UP(KC_RCTL), SS_UP(KC_RGUI), SS_UP(KC_RSHIFT),
+    END
 };
 
 // Key Override definitions
