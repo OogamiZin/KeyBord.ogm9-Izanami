@@ -118,11 +118,7 @@ const vial_combo_entry_t PROGMEM default_combo_entries[] = {
 
 // Macro buffer
 const uint8_t PROGMEM default_macro_buffer[] = {
-    // MACのスクリーンショット: Shift + GUI + Ctrl を押しながら '4' を押して離すシーケンス
-    SS_DOWN(KC_RSHIFT), SS_DOWN(KC_RGUI), SS_DOWN(KC_RCTL),
-    SS_TAP(KC_4),
-    SS_UP(KC_RCTL), SS_UP(KC_RGUI), SS_UP(KC_RSHIFT),
-    END
+    0
 };
 
 // Key Override definitions
