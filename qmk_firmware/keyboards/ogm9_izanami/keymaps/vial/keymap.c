@@ -38,8 +38,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_EQUAL, KC_INTERNATIONAL_3, KC_RIGHT_BRACKET,    KC_BACKSLASH,
            KC_SEMICOLON,        KC_QUOTE,        KC_SLASH,          KC_DOT,
                   KC_UP,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
-         KC_TRANSPARENT, LT(3,KC_TRANSPARENT),  KC_TRANSPARENT,  KC_TRANSPARENT,
-        LT(3,KC_TRANSPARENT),         KC_LEFT,         KC_DOWN,        KC_RIGHT
+         KC_TRANSPARENT,           TO(3),  KC_TRANSPARENT,  KC_TRANSPARENT,
+                  TO(3),         KC_LEFT,         KC_DOWN,        KC_RIGHT
     ),
     [2] = LAYOUT(
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
@@ -55,6 +55,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_TRANSPARENT,         KC_HOME,    KC_PAGE_DOWN,          KC_END
     ),
     [3] = LAYOUT(
+         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
+         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
+         KC_TRANSPARENT,  KC_TRANSPARENT,           TO(0),  KC_TRANSPARENT,
+                   KC_1,            KC_2,            KC_3,            KC_4,
+                   KC_5,            KC_6,            KC_7,            KC_8,
+                   KC_9,            KC_0,  KC_TRANSPARENT,  KC_TRANSPARENT,
+         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
+         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
+         KC_TRANSPARENT, LT(4,KC_TRANSPARENT),  KC_TRANSPARENT,  KC_TRANSPARENT,
+         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
+         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT
+    ),
+    [4] = LAYOUT(
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,   QK_BOOTLOADER,  KC_TRANSPARENT,
@@ -81,6 +94,9 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
         { KC_MS_WH_LEFT  , KC_MS_WH_RIGHT  }
     },
     [3] = {
+        { KC_TRANSPARENT , KC_TRANSPARENT  }
+    },
+    [4] = {
         { KC_TRANSPARENT , KC_TRANSPARENT  }
     }
 };
@@ -118,7 +134,7 @@ const vial_combo_entry_t PROGMEM default_combo_entries[] = {
 
 // Macro buffer
 const uint8_t PROGMEM default_macro_buffer[] = {
-    0
+    
 };
 
 // Key Override definitions
