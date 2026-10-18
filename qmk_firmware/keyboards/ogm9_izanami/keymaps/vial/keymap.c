@@ -11,6 +11,7 @@
 
 enum custom_keycodes {
     MAC_SCREENSHOT = SAFE_RANGE,
+    LAYER_INFO,
 };
 /* USER INCLUDE END */
 
@@ -102,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
-         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
+         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  LAYER_INFO,
          KC_TRANSPARENT,  KC_TRANSPARENT,           MO(3),  KC_TRANSPARENT,
                   DF(0),  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
@@ -294,6 +295,17 @@ void matrix_scan_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case LAYER_INFO:
+            if (record->event.pressed) {
+                // 現在のデフォルトレイヤーに応じた文章を入力する
+                if (get_highest_layer(default_layer_state) == 3) {
+                    SEND_STRING("The default layer is 3 for macOS.");
+                } else {
+                    SEND_STRING("The default layer is 0 for Windows and other operating systems.");
+                }
+            }
+            return false;
+
         case MAC_SCREENSHOT:
             if (record->event.pressed) {
                 // Shift + Command + Control を押す
