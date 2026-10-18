@@ -10,7 +10,8 @@
 #include "os_detection.h"
 
 enum custom_keycodes {
-    MAC_SCREENSHOT = SAFE_RANGE,
+    // VialのGUIで選べるよう、vial.jsonのcustomKeycodesと同じ順でQK_KB_0から割り当てる
+    MAC_SCREENSHOT = QK_KB_0,
     LAYER_INFO,
 };
 /* USER INCLUDE END */
