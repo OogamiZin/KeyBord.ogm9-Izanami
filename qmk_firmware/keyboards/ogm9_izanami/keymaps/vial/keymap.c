@@ -115,19 +115,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = {
-        { KC_MS_WH_LEFT  , KC_MS_WH_RIGHT  }
+        { KC_AUDIO_VOL_UP, KC_AUDIO_VOL_DOWN }
     },
     [1] = {
-        { KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP }
+        { KC_TRANSPARENT , KC_TRANSPARENT  }
     },
     [2] = {
-        { (QK_LCTL|QK_LGUI|KC_LEFT), (QK_LCTL|QK_LGUI|KC_RIGHT) }
+        { (QK_LCTL|QK_LGUI|KC_RIGHT), (QK_LCTL|QK_LGUI|KC_LEFT) }
     },
     [3] = {
-        { KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP }
+        { KC_AUDIO_VOL_UP, KC_AUDIO_VOL_DOWN }
     },
     [4] = {
-        { KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP }
+        { KC_TRANSPARENT , KC_TRANSPARENT  }
     },
     [5] = {
         { (QK_LCTL|KC_LEFT), (QK_LCTL|KC_RIGHT) }
