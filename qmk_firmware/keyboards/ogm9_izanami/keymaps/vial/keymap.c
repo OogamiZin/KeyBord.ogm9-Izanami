@@ -7,6 +7,8 @@
 #endif
 
 /* USER INCLUDE BEGIN */
+#include "os_detection.h"
+
 enum custom_keycodes {
     MAC_SCREENSHOT = SAFE_RANGE,
 };
@@ -313,6 +315,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     return true;
+}
+
+// 接続先OSに応じてデフォルトレイヤーを切り替える
+// Mac(macOS / iOS) -> レイヤー3、それ以外 -> レイヤー0
+void housekeeping_task_user(void) {
+    static os_variant_t applied_os = OS_UNSURE;
+    os_variant_t os = detected_host_os();
+    if (os != applied_os) {
+        applied_os = os;
+        if (os == OS_MACOS || os == OS_IOS) {
+            default_layer_set(1UL << 3);
+        } else {
+            default_layer_set(1UL << 0);
+        }
+    }
 }
 
 /* USER CODE END */
