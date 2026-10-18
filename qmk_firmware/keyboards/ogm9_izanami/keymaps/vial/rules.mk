@@ -13,3 +13,6 @@ VIAL_ENCODER_ENABLE = yes
 
 # Override dynamic_keymap_reset
 LDFLAGS += -Wl,-wrap=dynamic_keymap_reset
+
+# Host OS detection (Mac -> layer 3, others -> layer 0)
+OS_DETECTION_ENABLE = yes
