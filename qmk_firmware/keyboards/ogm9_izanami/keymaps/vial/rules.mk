@@ -16,3 +16,6 @@ LDFLAGS += -Wl,-wrap=dynamic_keymap_reset
 
 # Host OS detection (Mac -> layer 3, others -> layer 0)
 OS_DETECTION_ENABLE = yes
+
+# Dynamic Macro (DM_REC1 / DM_PLY1 / DM_RSTP)
+DYNAMIC_MACRO_ENABLE = yes
