@@ -318,8 +318,9 @@ void matrix_scan_user(void) {
 static bool     dm_ctl_pos_held    = false;  // Ctrl の位置のキーが押されているか
 static bool     dm_sft_pos_held    = false;  // Shift の位置のキーが押されているか
 static bool     dm_at_pos_held     = false;  // @ の位置のキーが押されているか
-static bool     dm_trigger_active  = false;  // トリガーに使ったキーの離しを握りつぶすため
+static bool     dm_trigger_active  = false;  // トリガー中のキー（押してから離すまで）
 static keypos_t dm_trigger_pos;
+static uint16_t dm_trigger_kc      = KC_NO;  // 実行する DM_* キーコード
 
 static bool dm_is_pos(keyrecord_t *record, uint8_t row, uint8_t col) {
     return record->event.key.row == row && record->event.key.col == col;
@@ -348,14 +349,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 dm = DM_RSTP;
             }
             if (dm != KC_NO) {
-                process_dynamic_macro(dm, record);
+                // QMK の Dynamic Macro は「REC/PLY は離したとき」「RSTP は押したとき」に動くため、
+                // 押し・離しの両方を DM_* キーとして渡す
                 dm_trigger_active = true;
                 dm_trigger_pos    = record->event.key;
+                dm_trigger_kc     = dm;
+                process_dynamic_macro(dm_trigger_kc, record);
                 return false;  // PCには送らない
             }
         }
     } else if (dm_trigger_active && KEYEQ(record->event.key, dm_trigger_pos)) {
         dm_trigger_active = false;
+        process_dynamic_macro(dm_trigger_kc, record);  // 離したときの処理（記録開始・再生）
+        dm_trigger_kc = KC_NO;
         return false;  // トリガーに使ったキーの離しもPCには送らない
     }
 
