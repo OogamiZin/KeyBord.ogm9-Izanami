@@ -298,10 +298,14 @@ void matrix_scan_user(void) {
 }
 
 // ---- Dynamic Macro トリガー（キーの割り当てではなく、物理的なキー位置で判定）----
-// Ctrl + Shift + [@の位置] を押したまま
+// [Ctrlの位置] + [Shiftの位置] + [@の位置] を押したまま（いずれもレイヤー0基準の物理位置）
 //   [Mの位置] -> DM_REC1（記録開始）
 //   [Lの位置] -> DM_PLY1（再生）
 //   [Pの位置] -> DM_RSTP（記録停止）
+#define DM_POS_CTL_ROW  3   // Ctrl の位置 : matrix [3,0]
+#define DM_POS_CTL_COL  0
+#define DM_POS_SFT_ROW  2   // Shift の位置: matrix [2,0]
+#define DM_POS_SFT_COL  0
 #define DM_POS_AT_ROW   3   // @ の位置   : matrix [3,10]
 #define DM_POS_AT_COL  10
 #define DM_POS_REC_ROW  2   // M の位置   : matrix [2,7]
@@ -311,6 +315,8 @@ void matrix_scan_user(void) {
 #define DM_POS_STP_ROW  0   // P の位置   : matrix [0,9]
 #define DM_POS_STP_COL  9
 
+static bool     dm_ctl_pos_held    = false;  // Ctrl の位置のキーが押されているか
+static bool     dm_sft_pos_held    = false;  // Shift の位置のキーが押されているか
 static bool     dm_at_pos_held     = false;  // @ の位置のキーが押されているか
 static bool     dm_trigger_active  = false;  // トリガーに使ったキーの離しを握りつぶすため
 static keypos_t dm_trigger_pos;
@@ -320,14 +326,19 @@ static bool dm_is_pos(keyrecord_t *record, uint8_t row, uint8_t col) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // @ の位置のキーが押されているかを記録（キー本来の動作はそのまま）
+    // Ctrl / Shift / @ の位置のキーが押されているかを記録（キー本来の動作はそのまま）
+    if (dm_is_pos(record, DM_POS_CTL_ROW, DM_POS_CTL_COL)) {
+        dm_ctl_pos_held = record->event.pressed;
+    }
+    if (dm_is_pos(record, DM_POS_SFT_ROW, DM_POS_SFT_COL)) {
+        dm_sft_pos_held = record->event.pressed;
+    }
     if (dm_is_pos(record, DM_POS_AT_ROW, DM_POS_AT_COL)) {
         dm_at_pos_held = record->event.pressed;
     }
 
     if (record->event.pressed) {
-        uint8_t mods = get_mods();
-        if (dm_at_pos_held && (mods & MOD_MASK_CTRL) && (mods & MOD_MASK_SHIFT)) {
+        if (dm_ctl_pos_held && dm_sft_pos_held && dm_at_pos_held) {
             uint16_t dm = KC_NO;
             if (dm_is_pos(record, DM_POS_REC_ROW, DM_POS_REC_COL)) {
                 dm = DM_REC1;
