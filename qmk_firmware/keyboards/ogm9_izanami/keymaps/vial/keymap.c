@@ -8,11 +8,14 @@
 
 /* USER INCLUDE BEGIN */
 #include "os_detection.h"
+// SEND_STRING を JIS 配列のPC向けに変換する（* や = を正しく入力するため）
+#include "sendstring_japanese.h"
 
 enum custom_keycodes {
     // VialのGUIで選べるよう、vial.jsonのcustomKeycodesと同じ順でQK_KB_0から割り当てる
     MAC_SCREENSHOT = QK_KB_0,
     LAYER_INFO,
+    SQL_SELECT_TMP,
 };
 /* USER INCLUDE END */
 
@@ -49,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,           KC_F6,  KC_TRANSPARENT,       KC_INSERT,
          KC_TRANSPARENT,          KC_F12,       KC_DELETE,        KC_GRAVE,
-         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT, KC_PRINT_SCREEN,
+         KC_TRANSPARENT,  SQL_SELECT_TMP,  KC_TRANSPARENT, KC_PRINT_SCREEN,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          (QK_LGUI|KC_L), (QK_LSFT|KC_INTERNATIONAL_1), (QK_LGUI|KC_DOT),  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
@@ -88,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
          KC_TRANSPARENT,           KC_F6,  KC_TRANSPARENT,       KC_INSERT,
          KC_TRANSPARENT,          KC_F12, (QK_LGUI|KC_BACKSPACE),        KC_GRAVE,
-         KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  MAC_SCREENSHOT,
+         KC_TRANSPARENT,  SQL_SELECT_TMP,  KC_TRANSPARENT,  MAC_SCREENSHOT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
         (QK_LCTL|QK_LGUI|KC_Q), (QK_LSFT|KC_INTERNATIONAL_1), (QK_LCTL|QK_LGUI|KC_SPACE),  KC_TRANSPARENT,
          KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT,
@@ -296,6 +299,23 @@ void matrix_scan_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case SQL_SELECT_TMP:
+            if (record->event.pressed) {
+                // 英数(IMEオフ)に切り替えてからSQLのひな形を入力
+                tap_code(KC_LANGUAGE_2);
+                wait_ms(50);
+                SEND_STRING("Select *\nFrom \nWhere 1=1\nOrder by 1");
+                // 2行上(From の行)に戻って行末へ移動
+                tap_code(KC_UP);
+                tap_code(KC_UP);
+                if (get_highest_layer(default_layer_state) == 3) {
+                    tap_code16(LGUI(KC_RIGHT));  // Mac: Cmd+→
+                } else {
+                    tap_code(KC_END);            // Windows など: End
+                }
+            }
+            return false;
+
         case LAYER_INFO:
             if (record->event.pressed) {
                 // 現在のデフォルトレイヤーに応じた文章を入力する
