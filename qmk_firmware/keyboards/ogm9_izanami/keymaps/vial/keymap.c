@@ -348,6 +348,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     dm_trigger_active = true;
                     dm_trigger_pos    = record->event.key;
                     dm_trigger_kc     = dm;
+                    if (dm == DM_PLY1) {
+                        // 記録中なら先に停止してから再生する（サクラエディタと同じ挙動）
+                        // 記録中でなければ何も起きない
+                        process_dynamic_macro(DM_RSTP, record);
+                    }
                     process_dynamic_macro(dm, record);  // RSTP は押したときに動く
                     return false;                       // PCには送らない
                 }
