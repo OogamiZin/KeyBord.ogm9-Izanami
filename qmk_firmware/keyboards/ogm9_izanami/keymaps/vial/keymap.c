@@ -315,54 +315,52 @@ void matrix_scan_user(void) {
 #define DM_POS_STP_ROW  0   // P の位置   : matrix [0,9]
 #define DM_POS_STP_COL  9
 
-static bool     dm_ctl_pos_held    = false;  // Ctrl の位置のキーが押されているか
-static bool     dm_sft_pos_held    = false;  // Shift の位置のキーが押されているか
-static bool     dm_at_pos_held     = false;  // @ の位置のキーが押されているか
 static bool     dm_trigger_active  = false;  // トリガー中のキー（押してから離すまで）
 static keypos_t dm_trigger_pos;
 static uint16_t dm_trigger_kc      = KC_NO;  // 実行する DM_* キーコード
+static bool     dm_in_playback     = false;  // マクロ再生中はトリガー判定をしない
+
+// Ctrl / Shift / @ の位置のキーが「今まさに物理的に」押されているか
+// （イベントで追いかけると、マクロ再生で離しイベントが流れて状態がずれるため、マトリクスを直接見る）
+static bool dm_trigger_mods_held(void) {
+    return matrix_is_on(DM_POS_CTL_ROW, DM_POS_CTL_COL) &&
+           matrix_is_on(DM_POS_SFT_ROW, DM_POS_SFT_COL) &&
+           matrix_is_on(DM_POS_AT_ROW,  DM_POS_AT_COL);
+}
 
 static bool dm_is_pos(keyrecord_t *record, uint8_t row, uint8_t col) {
     return record->event.key.row == row && record->event.key.col == col;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Ctrl / Shift / @ の位置のキーが押されているかを記録（キー本来の動作はそのまま）
-    if (dm_is_pos(record, DM_POS_CTL_ROW, DM_POS_CTL_COL)) {
-        dm_ctl_pos_held = record->event.pressed;
-    }
-    if (dm_is_pos(record, DM_POS_SFT_ROW, DM_POS_SFT_COL)) {
-        dm_sft_pos_held = record->event.pressed;
-    }
-    if (dm_is_pos(record, DM_POS_AT_ROW, DM_POS_AT_COL)) {
-        dm_at_pos_held = record->event.pressed;
-    }
-
-    if (record->event.pressed) {
-        if (dm_ctl_pos_held && dm_sft_pos_held && dm_at_pos_held) {
-            uint16_t dm = KC_NO;
-            if (dm_is_pos(record, DM_POS_REC_ROW, DM_POS_REC_COL)) {
-                dm = DM_REC1;
-            } else if (dm_is_pos(record, DM_POS_PLY_ROW, DM_POS_PLY_COL)) {
-                dm = DM_PLY1;
-            } else if (dm_is_pos(record, DM_POS_STP_ROW, DM_POS_STP_COL)) {
-                dm = DM_RSTP;
+    if (!dm_in_playback) {
+        if (record->event.pressed) {
+            if (dm_trigger_mods_held()) {
+                uint16_t dm = KC_NO;
+                if (dm_is_pos(record, DM_POS_REC_ROW, DM_POS_REC_COL)) {
+                    dm = DM_REC1;
+                } else if (dm_is_pos(record, DM_POS_PLY_ROW, DM_POS_PLY_COL)) {
+                    dm = DM_PLY1;
+                } else if (dm_is_pos(record, DM_POS_STP_ROW, DM_POS_STP_COL)) {
+                    dm = DM_RSTP;
+                }
+                if (dm != KC_NO) {
+                    dm_trigger_active = true;
+                    dm_trigger_pos    = record->event.key;
+                    dm_trigger_kc     = dm;
+                    process_dynamic_macro(dm, record);  // RSTP は押したときに動く
+                    return false;                       // PCには送らない
+                }
             }
-            if (dm != KC_NO) {
-                // QMK の Dynamic Macro は「REC/PLY は離したとき」「RSTP は押したとき」に動くため、
-                // 押し・離しの両方を DM_* キーとして渡す
-                dm_trigger_active = true;
-                dm_trigger_pos    = record->event.key;
-                dm_trigger_kc     = dm;
-                process_dynamic_macro(dm_trigger_kc, record);
-                return false;  // PCには送らない
-            }
+        } else if (dm_trigger_active && KEYEQ(record->event.key, dm_trigger_pos)) {
+            uint16_t kc       = dm_trigger_kc;
+            dm_trigger_active = false;
+            dm_trigger_kc     = KC_NO;
+            dm_in_playback    = (kc == DM_PLY1);
+            process_dynamic_macro(kc, record);          // REC / PLY は離したときに動く
+            dm_in_playback    = false;
+            return false;                               // 離しもPCには送らない
         }
-    } else if (dm_trigger_active && KEYEQ(record->event.key, dm_trigger_pos)) {
-        dm_trigger_active = false;
-        process_dynamic_macro(dm_trigger_kc, record);  // 離したときの処理（記録開始・再生）
-        dm_trigger_kc = KC_NO;
-        return false;  // トリガーに使ったキーの離しもPCには送らない
     }
 
     switch (keycode) {
