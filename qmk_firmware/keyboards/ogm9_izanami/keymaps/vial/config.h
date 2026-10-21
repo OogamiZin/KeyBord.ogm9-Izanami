@@ -8,6 +8,6 @@
 #define VIAL_COMBO_ENTRIES 8
 #define VIAL_KEY_OVERRIDE_ENTRIES 4
 
-// Dynamic Macro のバッファサイズ（初期値 128 の5倍）
+// Dynamic Macro のバッファサイズ（初期値 128 の10倍）
 // マクロ1・2で共有。キーを押す・離すでそれぞれ1件消費する
-#define DYNAMIC_MACRO_SIZE 640
+#define DYNAMIC_MACRO_SIZE 1280
